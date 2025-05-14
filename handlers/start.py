@@ -11,4 +11,4 @@ router = Router()
 
 @router.message(Command("start"))
 async def cmd_start(message: Message):
-    await message.answer("Hello!")
+    await message.answer("Добро пожаловать в онлайн-помощника Shpalorez!")

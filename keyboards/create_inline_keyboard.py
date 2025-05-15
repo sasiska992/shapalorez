@@ -22,6 +22,5 @@ async def create_inline_keyboard(data: list[dict]) -> InlineKeyboardBuilder:
         builder.button(
             text=item["text"],
             callback_data=item["callback_data"],
-            # callback_data="aobab",
         )
     return builder

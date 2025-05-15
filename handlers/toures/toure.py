@@ -51,7 +51,9 @@ async def cmd_counting(callback_query: CallbackQuery, state: FSMContext):
 
 @router.callback_query(ToureStates.TourePlace)
 async def cmd_toure_place(callback_query: CallbackQuery, state: FSMContext):
-    await state.set_data(toure_place=callback_query.data)
+    data = await state.update_data(toure_place=callback_query.data)
     await state.set_state(ToureStates.ToureEnd)
-    keyboard = await create_inline_keyboard(get_data(2, ["До 6", callback_query.data]))
+    keyboard = await create_inline_keyboard(
+        get_data(2, [data["counting"], callback_query.data])
+    )
     await callback_query.message.answer(callback_query.data, reply_markup=keyboard)

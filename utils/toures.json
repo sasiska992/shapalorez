@@ -2,52 +2,68 @@
   "data": [
     {
       "text": "До 6",
+      "callback_data": "less_6",
       "next": [
         {
           "text": "Дрезина ежедневно",
+          "callback_data": "drezina",
           "next": [
             {
-              "text": "Вольчьи Ворота"
+              "text": "Вольчьи Ворота",
+              "callback_data": "volchik_vort"
             },
             {
-              "text": "Десятый километр"
+              "text": "Десятый километр",
+              "callback_data": "desyat_kilometr"
             },
             {
-              "text": "Кушина"
+              "text": "Кушина",
+              "callback_data": "kushina"
             },
             {
-              "text": "Красный мост"
+              "text": "Красный мост",
+              "callback_data": "krasnoy_most"
             },
             {
-              "text": "Отдалённый (Шпалорез)"
+              "text": "Отдалённый (Шпалорез)",
+              "callback_data": "shapoleroz"
             }
           ]
         },
         {
           "text": "Туристический поезд по выходным и праздничным дням",
+          "callback_data": "touristitskiy_poezd",
+
           "next": [
             {
-              "text": "Десятый километр"
+              "text": "Десятый километр",
+              "callback_data": "desyat_kilometr"
             },
             {
-              "text": "Вольчьи Ворота"
+              "text": "Вольчьи Ворота",
+              "callback_data": "volchik_vort"
             },
             {
-              "text": "Красный мост"
+              "text": "Красный мост",
+              "callback_data": "krasnoy_most"
             }
           ]
         },
         {
           "text": "Матрица - муниципальный поезд в будние дни",
+          "callback_data": "matrya",
           "next": [
             {
-              "text": "Понедельник, 6:00 и 15:10"
+              "text": "Понедельник, 6:00 и 15:10",
+              "callback_data": "ponedelnik"
             },
             {
-              "text": "Среда, 6:00 и 15:10"
+              "text": "Среда, 6:00 и 15:10",
+              "callback_data": "sreda"
             },
             {
-              "text": "Пятница, 6:00 и 15:10"
+              "text": "Пятница, 6:00 и 15:10",
+              "callback_data": "pyatnik"
             }
           ]
         }
@@ -55,6 +71,7 @@
     },
     {
       "text": "Больше 6",
+      "callback_data": "more_6",
       "next": [
         {
           "a": 2

@@ -9,7 +9,7 @@ def get_toures():
 
 def get_index(value: str, data: list[dict]):
     for i, item in enumerate(data):
-        if item["text"] == value:
+        if item["callback_data"] == value:
             return i
 
 
@@ -30,19 +30,28 @@ def get_data(level: int, previous_values: list[str]):
             ]
         ]
     if level == 2:
+        items = []
+        for item in data["data"][get_index(previous_values[0], data["data"])]["next"][
+            get_index(
+                previous_values[1],
+                data["data"][get_index(previous_values[0], data["data"])]["next"],
+            )
+        ]["next"]:
+            items.append({"text": item["text"], "callback_data": item["callback_data"]})
+        return items
         return [
-            item["text"]
-            for item in data["data"][get_index(previous_values[0], data["data"])][
-                "next"
-            ][
-                get_index(
-                    previous_values[1],
-                    data["data"][get_index(previous_values[0], data["data"])]["next"],
-                )
-            ][
-                "next"
-            ]
+            # item["text"]
+            # for item in data["data"][get_index(previous_values[0], data["data"])][
+            #     "next"
+            # ][
+            #     get_index(
+            #         previous_values[1],
+            #         data["data"][get_index(previous_values[0], data["data"])]["next"],
+            #     )
+            # ][
+            #     "next"
+            # ]
         ]
 
 
-print(get_data(2, ["До 6", "Матрица - муниципальный поезд в будние дни"]))
+print(get_data(2, ["less_6", "drezina"]))

@@ -74,7 +74,8 @@
       "callback_data": "more_6",
       "next": [
         {
-          "a": 2
+          "a": 2,
+          "callback_data" : "2"
         }
       ]
     }

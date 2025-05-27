@@ -39,19 +39,44 @@ def get_data(level: int, previous_values: list[str]):
         ]["next"]:
             items.append({"text": item["text"], "callback_data": item["callback_data"]})
         return items
-        return [
-            # item["text"]
-            # for item in data["data"][get_index(previous_values[0], data["data"])][
-            #     "next"
-            # ][
-            #     get_index(
-            #         previous_values[1],
-            #         data["data"][get_index(previous_values[0], data["data"])]["next"],
-            #     )
-            # ][
-            #     "next"
-            # ]
-        ]
 
 
-print(get_data(2, ["less_6", "drezina"]))
+keys_to_find = ["less_6", "drezina", "krasnoy_most"]
+
+
+# Функция для поиска callback_data
+def find_callback_data(keys: list[str]):
+    data = get_toures()
+    """
+    Ищет значения 'text' в словаре по заданным ключам 'callback_data'.
+
+    Параметры:
+    keys (list): Список ключей 'callback_data', по которым будет осуществляться поиск.
+
+    Возвращает:
+    list: Уникальные значения 'text', соответствующие найденным 'callback_data'.
+    """
+    results = []
+    
+    def search(data):
+        """
+        Рекурсивно ищет значения 'text' в словаре или списке.
+
+        Параметры:
+        data (dict или list): Словарь или список, в котором будет производиться поиск.
+        """
+        if isinstance(data, dict):
+            # Проверяем, есть ли текущий элемент в списке ключей
+            if data.get('callback_data') in keys:
+                results.append(data['text'])  # Добавляем 'text' в результаты
+            # Рекурсивно ищем в подэлементах
+            for key, value in data.items():
+                if isinstance(value, (dict, list)):
+                    search(value)
+        elif isinstance(data, list):
+            # Рекурсивно ищем в каждом элементе списка
+            for item in data:
+                search(item)
+    
+    search(data)  # Начинаем поиск
+    return results  # Возвращаем результаты в порядке их следования

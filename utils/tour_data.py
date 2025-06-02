@@ -7,4 +7,4 @@ DATA_PATH = "utils/toures.json"
 
 # Загрузим данные один раз при импорте
 with open(DATA_PATH, "r", encoding="utf-8") as f:
-    TOUR_STRUCTURE = json.load(f)["data"]
+    TOURE_STRUCTURE = json.load(f)

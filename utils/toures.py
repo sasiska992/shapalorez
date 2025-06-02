@@ -1,5 +1,5 @@
 import json
-from tour_data import TOUR_STRUCTURE
+from .tour_data import TOURE_STRUCTURE
 
 
 def get_index(value: str, data: list[dict]):
@@ -8,8 +8,17 @@ def get_index(value: str, data: list[dict]):
             return i
 
 
-def TOURE_STRUCTURE(level: int, previous_values: list[str]):
-    data = TOUR_STRUCTURE
+def get_prev_data(dict: dict):
+    result = []
+    for key, value in dict.items():
+        result.append(value)
+
+    print("Прошлые данные -> ", result)
+    return result
+
+
+def get_next_values(level: int, previous_values: list[str]):
+    data = TOURE_STRUCTURE
     if level == 0:
         result = data["data"]
         return [
@@ -39,7 +48,6 @@ def TOURE_STRUCTURE(level: int, previous_values: list[str]):
 def get_labels_by_callback_path(callback_path):
     """
     Ищет путь по callback_data и возвращает соответствующие текстовые метки.
-    Данные берутся из уже загруженной структуры (один раз при старте).
     """
 
     def dfs(current_level, path_remaining, result):
@@ -56,5 +64,6 @@ def get_labels_by_callback_path(callback_path):
         return False
 
     result_labels = []
-    found = dfs(TOUR_STRUCTURE, callback_path, result_labels)
+    data = TOURE_STRUCTURE["data"]
+    found = dfs(data, callback_path, result_labels)
     return result_labels if found else None

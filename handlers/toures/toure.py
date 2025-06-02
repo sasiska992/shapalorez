@@ -6,7 +6,8 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 from keyboards.send_number import create_contact_keyboard
 from keyboards.create_inline_keyboard import create_inline_keyboard
 from states.toure_6_less import ToureStates
-from utils.toures import get_data, find_callback_data
+from utils.toures import find_callback_data
+from utils.tour_data import TOUR_STRUCTURE
 
 router = Router()
 
@@ -22,7 +23,7 @@ def get_prev_data(dict: dict):
 
 @router.message(Command("application"))
 async def cmd_test_2(message: Message, state: FSMContext):
-    keyboard = await create_inline_keyboard(get_data(0, []))
+    keyboard = await create_inline_keyboard(TOUR_STRUCTURE(0, []))
     await state.set_state(ToureStates.Counting)
     await message.answer(
         "Сколько человек собирается учавствовать в туре?", reply_markup=keyboard
@@ -33,7 +34,7 @@ async def cmd_test_2(message: Message, state: FSMContext):
 async def counting(callback_query: CallbackQuery, state: FSMContext):
     data = await state.update_data(counting=callback_query.data)
     await state.set_state(ToureStates.TourePlace)
-    keyboard = await create_inline_keyboard(get_data(1, get_prev_data(data)))
+    keyboard = await create_inline_keyboard(TOUR_STRUCTURE(1, get_prev_data(data)))
     await callback_query.answer("Done!")
     await callback_query.message.answer("Выберите тур", reply_markup=keyboard)
 
@@ -43,7 +44,7 @@ async def toure_place(callback_query: CallbackQuery, state: FSMContext):
     data = await state.update_data(toure_place=callback_query.data)
     await state.set_state(ToureStates.ToureEnd)
 
-    keyboard = await create_inline_keyboard(get_data(2, get_prev_data(data)))
+    keyboard = await create_inline_keyboard(TOUR_STRUCTURE(2, get_prev_data(data)))
     await callback_query.answer("Done!")
 
     await callback_query.message.answer("Выберите тур снова!", reply_markup=keyboard)

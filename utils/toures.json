@@ -31,7 +31,7 @@
           ]
         },
         {
-          "text": "Туристический поезд по выходным и праздничным дням",
+          "text": "Туристический поезд по выходным",
           "callback_data": "touristitskiy_poezd",
 
           "next": [
@@ -50,7 +50,7 @@
           ]
         },
         {
-          "text": "Матрица - муниципальный поезд в будние дни",
+          "text": "Матрица - автомотриса в будние",
           "callback_data": "matrya",
           "next": [
             {
@@ -74,8 +74,62 @@
       "callback_data": "more_6",
       "next": [
         {
-          "a": 2,
-          "callback_data" : "2"
+          "text": "Туристический поезд по выходным",
+          "callback_data": "touristitskiy_poezd",
+          "next": [
+            {
+              "text": "Десятый километр",
+              "callback_data": "desyat_kilometr"
+            },
+            {
+              "text": "Вольчьи Ворота",
+              "callback_data": "volchik_vort"
+            },
+            {
+              "text": "Красный мост",
+              "callback_data": "krasnoy_most"
+            }
+          ]
+        },
+        {
+          "text": "Полный выкуп поезда с мангалом",
+          "callback_data": "full_mangal",
+          "next": [
+            {
+              "text": "Десятый километр",
+              "callback_data": "desyat_kilometr"
+            },
+            {
+              "text": "Кушина",
+              "callback_data": "kushina"
+            },
+            {
+              "text": "Красный мост",
+              "callback_data": "krasnoy_most"
+            },
+            {
+              "text": "Отдалённый (Шпалорез)",
+              "callback_data": "shapoleroz"
+            }
+          ]
+        },
+        {
+          "text": "Матрица - автомотриса в будние",
+          "callback_data": "matrya",
+          "next": [
+            {
+              "text": "Понедельник, 6:00 и 15:10",
+              "callback_data": "ponedelnik"
+            },
+            {
+              "text": "Среда, 6:00 и 15:10",
+              "callback_data": "sreda"
+            },
+            {
+              "text": "Пятница, 6:00 и 15:10",
+              "callback_data": "pyatnik"
+            }
+          ]
         }
       ]
     }

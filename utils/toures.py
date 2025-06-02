@@ -1,10 +1,5 @@
 import json
-
-
-def get_toures():
-    with open("utils/toures.json", "r") as f:
-        data = json.load(f)
-    return data
+from tour_data import TOUR_STRUCTURE
 
 
 def get_index(value: str, data: list[dict]):
@@ -13,8 +8,8 @@ def get_index(value: str, data: list[dict]):
             return i
 
 
-def get_data(level: int, previous_values: list[str]):
-    data = get_toures()
+def TOURE_STRUCTURE(level: int, previous_values: list[str]):
+    data = TOUR_STRUCTURE
     if level == 0:
         result = data["data"]
         return [
@@ -41,42 +36,25 @@ def get_data(level: int, previous_values: list[str]):
         return items
 
 
-keys_to_find = ["less_6", "drezina", "krasnoy_most"]
-
-
-# Функция для поиска callback_data
-def find_callback_data(keys: list[str]):
-    data = get_toures()
+def get_labels_by_callback_path(callback_path):
     """
-    Ищет значения 'text' в словаре по заданным ключам 'callback_data'.
-
-    Параметры:
-    keys (list): Список ключей 'callback_data', по которым будет осуществляться поиск.
-
-    Возвращает:
-    list: Уникальные значения 'text', соответствующие найденным 'callback_data'.
+    Ищет путь по callback_data и возвращает соответствующие текстовые метки.
+    Данные берутся из уже загруженной структуры (один раз при старте).
     """
-    results = []
-    
-    def search(data):
-        """
-        Рекурсивно ищет значения 'text' в словаре или списке.
 
-        Параметры:
-        data (dict или list): Словарь или список, в котором будет производиться поиск.
-        """
-        if isinstance(data, dict):
-            # Проверяем, есть ли текущий элемент в списке ключей
-            if data.get('callback_data') in keys:
-                results.append(data['text'])  # Добавляем 'text' в результаты
-            # Рекурсивно ищем в подэлементах
-            for key, value in data.items():
-                if isinstance(value, (dict, list)):
-                    search(value)
-        elif isinstance(data, list):
-            # Рекурсивно ищем в каждом элементе списка
-            for item in data:
-                search(item)
-    
-    search(data)  # Начинаем поиск
-    return results  # Возвращаем результаты в порядке их следования
+    def dfs(current_level, path_remaining, result):
+        if not path_remaining:
+            return True
+
+        for item in current_level:
+            if item["callback_data"] == path_remaining[0]:
+                result.append(item["text"])
+                next_level = item.get("next", [])
+                if dfs(next_level, path_remaining[1:], result):
+                    return True
+                result.pop()  # Откатываем, если путь не совпал дальше
+        return False
+
+    result_labels = []
+    found = dfs(TOUR_STRUCTURE, callback_path, result_labels)
+    return result_labels if found else None

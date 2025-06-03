@@ -18,6 +18,18 @@ def get_prev_data(dict: dict):
 
 
 def get_next_values(level: int, previous_values: list[str]):
+
+    # # tour_data.py
+    # import json
+    # from pathlib import Path
+
+    # # Путь к JSON-файлу
+    # DATA_PATH = "utils/toures.json"
+
+    # # Загрузим данные один раз при импорте
+    # with open(DATA_PATH, "r", encoding="utf-8") as f:
+    #     TOURE_STRUCTURE = json.load(f)
+
     data = TOURE_STRUCTURE
     if level == 0:
         result = data["data"]
@@ -26,14 +38,14 @@ def get_next_values(level: int, previous_values: list[str]):
             for i in range(len(result))
         ]
 
-    if level == 1:
+    elif level == 1:
         return [
             {"text": item["text"], "callback_data": item["callback_data"]}
             for item in data["data"][get_index(previous_values[0], data["data"])][
                 "next"
             ]
         ]
-    if level == 2:
+    elif level == 2:
         items = []
         for item in data["data"][get_index(previous_values[0], data["data"])]["next"][
             get_index(
@@ -43,6 +55,33 @@ def get_next_values(level: int, previous_values: list[str]):
         ]["next"]:
             items.append({"text": item["text"], "callback_data": item["callback_data"]})
         return items
+    elif level == 3:
+        items = []
+        for item in data["data"][get_index(previous_values[0], data["data"])]["next"][
+            get_index(
+                previous_values[1],
+                data["data"][get_index(previous_values[0], data["data"])]["next"],
+            )
+        ]["next"][
+            get_index(
+                previous_values[2],
+                data["data"][get_index(previous_values[0], data["data"])]["next"][
+                    get_index(
+                        previous_values[1],
+                        data["data"][get_index(previous_values[0], data["data"])][
+                            "next"
+                        ],
+                    )
+                ]["next"],
+            )
+        ][
+            "next"
+        ]:
+            items.append({"text": item["text"], "callback_data": item["callback_data"]})
+        return items
+
+
+# print(get_next_values(3, ["less_6", "matrya", "sreda"]))
 
 
 def get_labels_by_callback_path(callback_path):

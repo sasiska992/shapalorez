@@ -6,11 +6,10 @@ from keyboards.send_number import create_contact_keyboard
 from keyboards.create_inline_keyboard import (
     create_inline_keyboard_for_toures_with_button_go_back,
 )
-from states.toure_6_less import ToureStates
+from states.toures import ToureStates
 from utils.toures import get_next_values, get_prev_data
 from utils.format_final_message import format_final_message
 import random
-
 
 import asyncio
 
@@ -75,12 +74,17 @@ async def counting_back(callback_query: CallbackQuery, state: FSMContext):
 
 @router.callback_query(ToureStates.TourePlace)
 async def toure_place(callback_query: CallbackQuery, state: FSMContext):
-    data = await state.update_data(toure_place=callback_query.data)
-    await state.set_state(ToureStates.ToureEnd)
-
-    # Создаем новую клавиатуру
+    if callback_query.data == "toure_time_back":
+        data = await state.get_data()
+    else:
+        data = await state.update_data(toure_place=callback_query.data)
+    next_info = get_next_values(2, get_prev_data(data))
+    if {"text": "Понедельник", "callback_data": "ponedelnik"} in next_info:
+        await state.set_state(ToureStates.ToureDate)
+    else:
+        await state.set_state(ToureStates.ToureEnd)
     keyboard = await create_inline_keyboard_for_toures_with_button_go_back(
-        get_next_values(2, get_prev_data(data)), "toure_place_back"
+        next_info, "toure_place_back"
     )
 
     # Редактируем текущее сообщение
@@ -98,12 +102,46 @@ async def toure_place_back(callback_query: CallbackQuery, state: FSMContext):
 
     current_data = await state.get_data()
     current_data.pop("toure_place", None)
+
     await state.set_data(current_data)
 
     await state.set_state(ToureStates.Counting)
 
     # Возвращаемся к предыдущему шагу
     await counting(callback_query, state)
+
+
+@router.callback_query(ToureStates.ToureDate)
+async def toure_date(callback_query: CallbackQuery, state: FSMContext):
+    data = await state.update_data(toure_date=callback_query.data)
+
+    next_info = get_next_values(3, get_prev_data(data))
+
+    keyboard = await create_inline_keyboard_for_toures_with_button_go_back(
+        next_info, "toure_time_back"
+    )
+
+    # Редактируем текущее сообщение
+    await callback_query.message.edit_text(
+        "⏰ Отлично! Теперь выберите время поездки из доступных вариантов ниже:",
+        reply_markup=keyboard,
+    )
+    await callback_query.answer("")
+    await state.set_state(ToureStates.ToureEnd)
+
+
+@router.callback_query(ToureStates.ToureEnd, F.data == "toure_time_back")
+async def toure_time_back(callback_query: CallbackQuery, state: FSMContext):
+    await callback_query.answer("Вернёмся обратно!")
+
+    current_data = await state.get_data()
+    current_data.pop("toure_date", None)
+    await state.set_data(current_data)
+
+    await state.set_state(ToureStates.TourePlace)
+
+    # Возвращаемся к предыдущему шагу
+    await toure_place(callback_query, state)
 
 
 @router.callback_query(ToureStates.ToureEnd)
@@ -113,15 +151,12 @@ async def get_number(callback_query: CallbackQuery, state: FSMContext):
 
     # Отправляем новое сообщение с обычной клавиатурой
     await callback_query.message.answer(
-        "📱 Отлично! Остался последний шаг — поделитесь своими контактами, чтобы мы могли связаться с вами.",
+        "📱 Отлично! Остался последний шаг — поделитесь своими контактами, чтобы мы могли связаться с вами.\n"
+        "Для этого достаточно нажать на кнопку, которая появилась под вводом сообщения",
         reply_markup=keyboard,
     )
     await callback_query.answer("")
     await state.set_state(ToureStates.Contact)
-
-
-import asyncio
-import random
 
 
 async def show_circular_progress(message: Message):

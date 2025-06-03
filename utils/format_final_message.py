@@ -18,6 +18,7 @@ def format_final_message(message: Message, data: list[str]):
     """
     # Получаем текстовые метки из callback-пути
     prev_data = get_prev_data(data)
+
     result = get_labels_by_callback_path(prev_data)
 
     # Извлекаем имя пользователя
@@ -34,18 +35,35 @@ def format_final_message(message: Message, data: list[str]):
 
     username = message.from_user.username
     username_link = f"@{username}" if username else "<b> Нет </b>"
-    phone_number = message.contact.phone_number if message.contact else "<b> Не предоставлен </b>"
+    phone_number = (
+        message.contact.phone_number if message.contact else "<b> Не предоставлен </b>"
+    )
     name = message.contact.first_name if message.contact else "<b> Не указано </b>"
+    time = None
+    if len(result) == 4:
+        time = result[3]
+
+        formatted_message = (
+            f"<b>📬 Новый запрос на бронирование тура</b>\n\n"
+            f"<b>👥 Количество человек:</b> {result[0]}\n\n"
+            f"<b>🎫 Выбранный тур:</b> {result[1]}\n\n"
+            f"<b>📍 Место назначения:</b> {result[2]}\n\n"
+            f"<b>🕐 Время поездки:</b> {time}\n\n"
+            f"<b>👤 Имя клиента:</b> {name}\n\n"
+            f"<b>📞 Контактный телефон:</b> {phone_number}\n\n"
+            f"<b>📱 Telegram:</b> {username_link}"
+        )
+    else:
+        formatted_message = (
+            f"<b>📬 Новый запрос на бронирование тура</b>\n\n"
+            f"<b>👥 Количество человек:</b> {result[0]}\n\n"
+            f"<b>🎫 Выбранный тур:</b> {result[1]}\n\n"
+            f"<b>📍 Место назначения:</b> {result[2]}\n\n"
+            f"<b>👤 Имя клиента:</b> {name}\n\n"
+            f"<b>📞 Контактный телефон:</b> {phone_number}\n\n"
+            f"<b>📱 Telegram:</b> {username_link}"
+        )
 
     # Формируем красивое сообщение
-    formatted_message = (
-        f"<b>📬 Новый запрос на бронирование тура</b>\n\n"
-        f"<b>👥 Количество человек:</b> {result[0]}\n\n"
-        f"<b>🎫 Выбранный тур:</b> {result[1]}\n\n"
-        f"<b>📍 Место назначения:</b> {result[2]}\n\n"
-        f"<b>👤 Имя клиента:</b> {name}\n\n"
-        f"<b>📞 Контактный телефон:</b> {phone_number}\n\n"
-        f"<b>📱 Telegram:</b> {username_link}"
-    )
 
     return formatted_message

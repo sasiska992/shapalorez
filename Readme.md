@@ -79,12 +79,12 @@ docker -v
 
 #### a) Создайте образ Docker
 ```bash
-docker build -t shpalorez .
+docker build -t shpalorez-bot .
 ```
 
 #### b) Запустите контейнер
 ```bash
-docker run -d shpalorez:latest
+docker run --name shpalorez_tg_bot -d shpalorez-bot
 ```
 
 Теперь ваш бот запущен и готов к работе!

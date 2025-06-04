@@ -1,6 +1,6 @@
 # 🌟 Shpalorez Tour Booking Bot
 
-[![Python](https://img.shields.io/badge/Python-3.10-blue?logo=python)](https://www.python.org/) 
+[![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python)](https://www.python.org/) 
 [![Aiogram](https://img.shields.io/badge/Aiogram-3.x-green?logo=telegram)](https://docs.aiogram.dev/en/latest/)
 [![Docker](https://img.shields.io/badge/Docker-blue?logo=docker)](https://www.docker.com/)
 
@@ -65,7 +65,11 @@ cd shpalorez-bot
 BOT_TOKEN=your_telegram_bot_token_here
 ```
 
-### 3. Запуск через Docker
+### 3. Добавьте файл со струтурой туров.
+Вам нужно добавить файл со структурой туров в директорию utils/toures.json.
+Файл utils/toures_demo.json содержит структуру данных для туров. 
+
+### 4. Запуск через Docker
 Убедитесь, что у вас установлены **Docker** и **Docker Compose**.
 
 #### a) Создайте образ Docker

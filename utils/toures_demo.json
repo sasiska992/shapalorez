@@ -1,0 +1,23 @@
+{
+  "data": [
+    {
+      "text": "Выбор 1",
+      "callback_data": "choice_1",
+      "next": [
+        {
+          "text": "Подвыбор 1.1",
+          "callback_data": "subchoice_1_1",
+          "next": [
+            {
+              "text": "Подподвыбор 1.1.1",
+              "callback_data": "subsubchoice_1_1_1",
+              "next": [
+                { "text": "Конечный выбор", "callback_data": "final_choice" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

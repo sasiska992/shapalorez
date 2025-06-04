@@ -7,7 +7,12 @@ from aiogram.types import (
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 
-async def create_contact_keyboard():
+async def create_contact_keyboard() -> ReplyKeyboardMarkup:
+    """Создает клавиатуру для отправки контакта.
+
+    Returns:
+        ReplyKeyboardMarkup: Клавиатура для отправки контакта.
+    """
     kb_list = [
         [KeyboardButton(text="Поделиться номером", request_contact=True)],
     ]

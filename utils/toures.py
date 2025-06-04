@@ -1,92 +1,101 @@
-import json
 from .tour_data import TOURE_STRUCTURE
 
 
-def get_index(value: str, data: list[dict]):
-    for i, item in enumerate(data):
+def get_index(value: str, data_list: list[dict]) -> int:
+    """
+    Возвращает индекс элемента в списке словарей по значению 'callback_data'.
+
+    :param value: Значение 'callback_data', которое нужно найти.
+    :param data_list: Список словарей, где ищется значение.
+    :return: Индекс элемента в списке.
+    """
+    for index, item in enumerate(data_list):
         if item["callback_data"] == value:
-            return i
+            return index
+    raise ValueError(f"Value '{value}' not found in the data list.")
 
 
-def get_prev_data(dict: dict):
+def get_prev_data(dict: dict) -> list[str]:
+    """
+    Возвращает список предыдущих значений для inline-клавиатуры.
+
+    :param dict: Словарь с данными.
+    :return: Список предыдущих значений.
+    """
     result = []
     for key, value in dict.items():
         result.append(value)
 
-    print("Прошлые данные -> ", result)
     return result
 
 
-def get_next_values(level: int, previous_values: list[str]):
+def get_next_values(level: int, previous_values: list[str]) -> list[dict]:
+    """
+    Получает следующие значения для inline-клавиатуры на основе уровня и предыдущих значений.
 
-    # # tour_data.py
-    # import json
-    # from pathlib import Path
-
-    # # Путь к JSON-файлу
-    # DATA_PATH = "utils/toures.json"
-
-    # # Загрузим данные один раз при импорте
-    # with open(DATA_PATH, "r", encoding="utf-8") as f:
-    #     TOURE_STRUCTURE = json.load(f)
-
+    :param level: Уровень данных (0, 1, 2 или 3).
+    :param previous_values: Список предыдущих значений 'callback_data' для навигации по структуре.
+    :return: Список словарей с текстом и callback_data для кнопок.
+    """
+    # Основная структура данных
     data = TOURE_STRUCTURE
-    if level == 0:
-        result = data["data"]
-        return [
-            {"text": result[i]["text"], "callback_data": result[i]["callback_data"]}
-            for i in range(len(result))
-        ]
 
-    elif level == 1:
+    # Уровень 0: Корневой уровень (все доступные варианты)
+    if level == 0:
         return [
             {"text": item["text"], "callback_data": item["callback_data"]}
-            for item in data["data"][get_index(previous_values[0], data["data"])][
+            for item in data["data"]
+        ]
+
+    # Уровень 1: Первый шаг (данные зависят от первого выбранного значения)
+    elif level == 1:
+        first_level_index = get_index(previous_values[0], data["data"])
+        return [
+            {"text": item["text"], "callback_data": item["callback_data"]}
+            for item in data["data"][first_level_index]["next"]
+        ]
+
+    # Уровень 2: Второй шаг (данные зависят от первых двух выбранных значений)
+    elif level == 2:
+        first_level_index = get_index(previous_values[0], data["data"])
+        second_level_index = get_index(
+            previous_values[1], data["data"][first_level_index]["next"]
+        )
+        return [
+            {"text": item["text"], "callback_data": item["callback_data"]}
+            for item in data["data"][first_level_index]["next"][second_level_index][
                 "next"
             ]
         ]
-    elif level == 2:
-        items = []
-        for item in data["data"][get_index(previous_values[0], data["data"])]["next"][
-            get_index(
-                previous_values[1],
-                data["data"][get_index(previous_values[0], data["data"])]["next"],
-            )
-        ]["next"]:
-            items.append({"text": item["text"], "callback_data": item["callback_data"]})
-        return items
+
+    # Уровень 3: Третий шаг (данные зависят от первых трех выбранных значений)
     elif level == 3:
-        items = []
-        for item in data["data"][get_index(previous_values[0], data["data"])]["next"][
-            get_index(
-                previous_values[1],
-                data["data"][get_index(previous_values[0], data["data"])]["next"],
-            )
-        ]["next"][
-            get_index(
-                previous_values[2],
-                data["data"][get_index(previous_values[0], data["data"])]["next"][
-                    get_index(
-                        previous_values[1],
-                        data["data"][get_index(previous_values[0], data["data"])][
-                            "next"
-                        ],
-                    )
-                ]["next"],
-            )
-        ][
-            "next"
-        ]:
-            items.append({"text": item["text"], "callback_data": item["callback_data"]})
-        return items
+        first_level_index = get_index(previous_values[0], data["data"])
+        second_level_index = get_index(
+            previous_values[1], data["data"][first_level_index]["next"]
+        )
+        third_level_index = get_index(
+            previous_values[2],
+            data["data"][first_level_index]["next"][second_level_index]["next"],
+        )
+        return [
+            {"text": item["text"], "callback_data": item["callback_data"]}
+            for item in data["data"][first_level_index]["next"][second_level_index][
+                "next"
+            ][third_level_index]["next"]
+        ]
+
+    # Если уровень не поддерживается
+    else:
+        raise ValueError(f"Unsupported level: {level}")
 
 
-# print(get_next_values(3, ["less_6", "matrya", "sreda"]))
-
-
-def get_labels_by_callback_path(callback_path):
+def get_labels_by_callback_path(callback_path: list[str]) -> list[str]:
     """
     Ищет путь по callback_data и возвращает соответствующие текстовые метки.
+
+    :param callback_path: Список callback_data, которые нужно искать.
+    :return: Список текстовых меток, соответствующих callback_data.
     """
 
     def dfs(current_level, path_remaining, result):

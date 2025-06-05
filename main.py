@@ -27,9 +27,9 @@ async def set_commands():
     commands = [
         BotCommand(command="start", description="Запуск 🚂"),
         BotCommand(command="help", description="Помощь по командам🚨"),
-        BotCommand(command="infotoures", description="О всех наших турах 🗺️"),
+        BotCommand(command="infotours", description="О всех наших турах 🗺️"),
         BotCommand(command="contacts", description="Наши контакты ☎️"),
-        BotCommand(command="application", description="Оставить заявку"),
+        BotCommand(command="zakaz", description="Оставить заявку 🚂🎫"),
     ]
     await bot.set_my_commands(commands, BotCommandScopeDefault())
 

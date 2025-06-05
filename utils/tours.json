@@ -1,0 +1,197 @@
+{
+  "data": [
+    {
+      "text": "До 6",
+      "callback_data": "less_6",
+      "next": [
+        {
+          "text": "Дрезина ежедневно",
+          "callback_data": "drezina",
+          "next": [
+            {
+              "text": "Вольчьи Ворота",
+              "callback_data": "volchik_vort"
+            },
+            {
+              "text": "Десятый километр",
+              "callback_data": "desyat_kilometr"
+            },
+            {
+              "text": "Кушина",
+              "callback_data": "kushina"
+            },
+            {
+              "text": "Красный мост",
+              "callback_data": "krasnoy_most"
+            },
+            {
+              "text": "Отдалённый (Шпалорез)",
+              "callback_data": "shapoleroz"
+            }
+          ]
+        },
+        {
+          "text": "Туристический поезд по выходным",
+          "callback_data": "touristitskiy_poezd",
+
+          "next": [
+            {
+              "text": "Десятый километр",
+              "callback_data": "desyat_kilometr"
+            },
+            {
+              "text": "Вольчьи Ворота",
+              "callback_data": "volchik_vort"
+            },
+            {
+              "text": "Красный мост",
+              "callback_data": "krasnoy_most"
+            }
+          ]
+        },
+        {
+          "text": "Матрица - автомотриса в будние",
+          "callback_data": "matrya",
+          "next": [
+            {
+              "text": "Понедельник",
+              "callback_data": "ponedelnik",
+              "next": [
+                {
+                  "text": "6:00",
+                  "callback_data": "6:00"
+                },
+                {
+                  "text": "15:10",
+                  "callback_data": "15:10"
+                }
+              ]
+            },
+            {
+              "text": "Среда",
+              "callback_data": "sreda",
+              "next": [
+                {
+                  "text": "6:00",
+                  "callback_data": "6:00"
+                },
+                {
+                  "text": "15:10",
+                  "callback_data": "15:10"
+                }
+              ]
+            },
+            {
+              "text": "Пятница",
+              "callback_data": "pyatnik",
+              "next": [
+                {
+                  "text": "6:00",
+                  "callback_data": "6:00"
+                },
+                {
+                  "text": "15:10",
+                  "callback_data": "15:10"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "text": "Больше 6",
+      "callback_data": "more_6",
+      "next": [
+        {
+          "text": "Туристический поезд по выходным",
+          "callback_data": "touristitskiy_poezd",
+          "next": [
+            {
+              "text": "Десятый километр",
+              "callback_data": "desyat_kilometr"
+            },
+            {
+              "text": "Вольчьи Ворота",
+              "callback_data": "volchik_vort"
+            },
+            {
+              "text": "Красный мост",
+              "callback_data": "krasnoy_most"
+            }
+          ]
+        },
+        {
+          "text": "Полный выкуп поезда с мангалом",
+          "callback_data": "full_mangal",
+          "next": [
+            {
+              "text": "Десятый километр",
+              "callback_data": "desyat_kilometr"
+            },
+            {
+              "text": "Кушина",
+              "callback_data": "kushina"
+            },
+            {
+              "text": "Красный мост",
+              "callback_data": "krasnoy_most"
+            },
+            {
+              "text": "Отдалённый (Шпалорез)",
+              "callback_data": "shapoleroz"
+            }
+          ]
+        },
+        {
+          "text": "Матрица - автомотриса в будние",
+          "callback_data": "matrya",
+          "next": [
+            {
+              "text": "Понедельник",
+              "callback_data": "ponedelnik",
+              "next": [
+                {
+                  "text": "6:00",
+                  "callback_data": "6:00"
+                },
+                {
+                  "text": "15:10",
+                  "callback_data": "15:10"
+                }
+              ]
+            },
+            {
+              "text": "Среда",
+              "callback_data": "sreda",
+              "next": [
+                {
+                  "text": "6:00",
+                  "callback_data": "6:00"
+                },
+                {
+                  "text": "15:10",
+                  "callback_data": "15:10"
+                }
+              ]
+            },
+            {
+              "text": "Пятница",
+              "callback_data": "pyatnik",
+              "next": [
+                {
+                  "text": "6:00",
+                  "callback_data": "6:00"
+                },
+                {
+                  "text": "15:10",
+                  "callback_data": "15:10"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

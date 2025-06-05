@@ -1,7 +1,6 @@
 from aiogram.types import Message
-from handlers.toures.toure import get_prev_data
-from utils.toures import get_labels_by_callback_path
-from .toures import get_prev_data
+from utils.tours import get_labels_by_callback_path
+from .tours import get_prev_data
 
 
 def format_final_message(message: Message, data: list[str]):
@@ -17,6 +16,7 @@ def format_final_message(message: Message, data: list[str]):
         str: HTML-форматированное сообщение для отправки администратору или логирования.
     """
     # Получаем текстовые метки из callback-пути
+    print("Пришел запрос на формирование сообщения")
     prev_data = get_prev_data(data)
 
     result = get_labels_by_callback_path(prev_data)

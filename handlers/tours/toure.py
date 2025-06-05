@@ -7,7 +7,7 @@ from keyboards.create_inline_keyboard import (
     create_inline_keyboard_for_toures_with_button_go_back,
 )
 from states.toures import ToureStates
-from utils.toures import get_next_values, get_prev_data
+from utils.tours import get_next_values, get_prev_data
 from utils.format_final_message import format_final_message
 import random
 
@@ -21,7 +21,7 @@ from handlers.help import cmd_help
 router = Router()
 
 
-@router.message(Command("application"))
+@router.message(Command("zakaz"))
 async def cmd_application(message: Message, state: FSMContext) -> None:
     """
     Обработчик команды application.
@@ -288,10 +288,13 @@ async def toure_end(message: Message, state: FSMContext):
 
     # Сообщение об успешной обработке
     await message.answer(
-        "🚂🎉 Ваша заявка сформирована! В скором времени вам ответят🤝🏼\n\n",
-        "Если понадобится помощь - жмём /help — я тут! 😊",
+        """
+🚂🎉 Ваша заявка сформирована! в скором времени вам ответят🤝🏼
+
+Если понадобится помощь - жмём /help — я тут! 😊
+        """,
     )
-    # Финальное сообщение
+    # финальное сообщение
     await loading_message.edit_text(
         format_final_message(message, data), parse_mode="HTML"
     )

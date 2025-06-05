@@ -46,7 +46,7 @@ buttons = [
 
 
 # Обработчик команды /start
-@router.message(Command("infotoures"))
+@router.message(Command("infotours"))
 async def cmd_infotoures(message: Message):
     await message.answer(
         "Выберите тур из списка ниже",

@@ -11,13 +11,20 @@ router = Router()
 
 @router.message(Command("help"))
 async def cmd_help(message: Message):
-    help_text = (
-        "🚀 <b>Список доступных команд:</b>\n\n"
-        "/start - Запустить бота и начать работу 🎯\n"
-        "/help - Получить помощь по командам ℹ️\n"
-        "/info - Узнать больше о нас и наших контактах 🌐\n"
-        "/application - Оставить заявку на участие в туре 🚂"
-    )
+    help_text = """
+
+🚀 Доступные команды:
+
+/start - Запуск 🚂
+
+/zakaz - Оставить заявку 🚂🎫
+
+/infoturs - О всех наших турах 🗺️
+
+/contacts - Наши контакты ☎️
+
+/help - Помощь по командам🚨
+"""
     await message.answer(help_text, parse_mode="HTML")
 
 

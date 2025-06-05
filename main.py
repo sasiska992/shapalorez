@@ -14,6 +14,7 @@ from handlers import (
     help_router,
     toure_router,
     info_router,
+    contacts_router
 )
 
 logging.basicConfig(level=logging.INFO)
@@ -24,9 +25,10 @@ dp = Dispatcher()
 
 async def set_commands():
     commands = [
-        BotCommand(command="start", description="Старт"),
-        BotCommand(command="help", description="help"),
-        BotCommand(command="info", description="Информация"),
+        BotCommand(command="start", description="Запуск 🚂"),
+        BotCommand(command="help", description="Помощь по командам🚨"),
+        BotCommand(command="infotoures", description="О всех наших турах 🗺️"),
+        BotCommand(command="contacts", description="Наши контакты ☎️"),
         BotCommand(command="application", description="Оставить заявку"),
     ]
     await bot.set_my_commands(commands, BotCommandScopeDefault())
@@ -37,6 +39,7 @@ async def main():
     dp.include_router(help_router)
     dp.include_router(toure_router)
     dp.include_router(info_router)
+    dp.include_router(contacts_router)
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
     await set_commands()

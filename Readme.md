@@ -70,7 +70,25 @@ BOT_TOKEN=your_telegram_bot_token_here
 
 Файл **utils/tours_demo.json** содержит структуру данных для туров. Вам останется лишь добавить туры в этот файл.
 
-### 4. Запуск через Docker
+### 4. Запуск без Docker `через python3`
+Убедитесь, что у вас установлен **Python 3.x** и **pip**.
+
+```bash
+python -V
+pip -V
+```
+
+#### a) Установите зависимости
+```bash
+pip install -r requirements.txt
+```
+
+#### b) Запустите бота
+```bash
+python3 main.py  
+```
+
+### 5. Запуск через Docker
 Убедитесь, что у вас установлен **Docker**.
 
 ```bash

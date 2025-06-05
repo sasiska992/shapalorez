@@ -16,7 +16,6 @@ def format_final_message(message: Message, data: list[str]):
         str: HTML-форматированное сообщение для отправки администратору или логирования.
     """
     # Получаем текстовые метки из callback-пути
-    print("Пришел запрос на формирование сообщения")
     prev_data = get_prev_data(data)
 
     result = get_labels_by_callback_path(prev_data)

@@ -17,7 +17,7 @@ router = Router()
 buttons = [
     {"text": "Волчьи ворота", "callback_data": "info_voltchik_vort"},
     {"text": "Десятый километр", "callback_data": "info_desyat_kilometr"},
-    {"text": "Кушина", "callback_data": "info_kushina"},
+    {"text": "Кушинка", "callback_data": "info_kushina"},
     {"text": "Красный мост", "callback_data": "info_krasnoy_most"},
     {"text": "Отдалённый (Шпалорез)", "callback_data": "info_shapoleroz"},
     {"text": "Матрица", "callback_data": "info_matrya"},

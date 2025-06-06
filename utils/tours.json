@@ -9,7 +9,7 @@
           "callback_data": "drezina",
           "next": [
             {
-              "text": "Вольчьи Ворота",
+              "text": "Волчьи Ворота",
               "callback_data": "volchik_vort"
             },
             {
@@ -17,8 +17,8 @@
               "callback_data": "desyat_kilometr"
             },
             {
-              "text": "Кушина",
-              "callback_data": "kushina"
+              "text": "Кушинка",
+              "callback_data": "kushinka"
             },
             {
               "text": "Красный мост",
@@ -112,7 +112,7 @@
               "callback_data": "desyat_kilometr"
             },
             {
-              "text": "Вольчьи Ворота",
+              "text": "Волчьи Ворота",
               "callback_data": "volchik_vort"
             },
             {
@@ -130,8 +130,8 @@
               "callback_data": "desyat_kilometr"
             },
             {
-              "text": "Кушина",
-              "callback_data": "kushina"
+              "text": "Кушинка",
+              "callback_data": "kushinka"
             },
             {
               "text": "Красный мост",

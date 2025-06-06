@@ -25,7 +25,7 @@ def get_prev_data(dict: dict) -> list[str]:
     result = []
     for key, value in dict.items():
         result.append(value)
-
+    print("Прошлые данные -> ", result)
     return result
 
 

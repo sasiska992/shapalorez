@@ -33,6 +33,7 @@ async def cmd_application(message: Message, state: FSMContext) -> None:
     Returns:
         None
     """
+    await state.clear()
     keyboard = await create_inline_keyboard_for_toures_with_button_go_back(
         get_next_values(0, []), "toures_application_help"
     )
@@ -162,6 +163,30 @@ async def toure_place_back(callback_query: CallbackQuery, state: FSMContext):
     await counting(callback_query, state)
 
 
+@router.callback_query(ToureStates.ToureDate, F.data == "toure_place_back")
+async def toure_place_back(callback_query: CallbackQuery, state: FSMContext):
+    """
+    Возвращает пользователя во второй шаг выбора тура
+
+    Args:
+        callback_query (CallbackQuery): Нажатие кнопки пользователем
+        state (FSMContext): Текущее состояние
+    """
+    await callback_query.answer("Вернёмся обратно!")
+
+    # Убираем toure_place из данных в состоянии
+    current_data = await state.get_data()
+    current_data.pop("toure_place", None)
+
+    # Обновляем данные в состоянии
+    await state.set_data(current_data)
+
+    await state.set_state(ToureStates.Counting)
+
+    # Возвращаемся к предыдущему шагу
+    await counting(callback_query, state)
+
+
 @router.callback_query(ToureStates.ToureDate)
 async def toure_date(callback_query: CallbackQuery, state: FSMContext):
     """
@@ -172,7 +197,6 @@ async def toure_date(callback_query: CallbackQuery, state: FSMContext):
         state (FSMContext): Текущее состояние
     """
     data = await state.update_data(toure_date=callback_query.data)
-
     next_info = get_next_values(3, get_prev_data(data))
 
     keyboard = await create_inline_keyboard_for_toures_with_button_go_back(

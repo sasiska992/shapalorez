@@ -60,12 +60,7 @@ BOT_TOKEN=your_telegram_bot_token_here
 ADMINS=your_telegram_admin_ids_here # example: 123456789,987654321
 ```
 
-### 3. Добавьте файл со струтурой туров.
-Вам нужно добавить файл со структурой туров в директорию **utils/tours.json**.
-
-Файл **utils/tours_demo.json** содержит структуру данных для туров. Вам останется лишь добавить туры в этот файл.
-
-### 4. Запуск без Docker `через python3`
+### 3. Запуск без Docker `через python3`
 Убедитесь, что у вас установлен **Python 3.x** и **pip**.
 
 ```bash
@@ -83,7 +78,7 @@ pip install -r requirements.txt
 python3 main.py  
 ```
 
-### 5. Запуск через Docker
+### 4. Запуск через Docker
 Убедитесь, что у вас установлен **Docker**.
 
 ```bash

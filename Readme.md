@@ -50,7 +50,7 @@
 ### 1. Клонируйте репозиторий
 ```bash
 git clone https://github.com/sasiska992/shapalorez
-cd shpalorez-bot
+cd shpalorez
 ```
 
 ### 2. Настройка переменных окружения

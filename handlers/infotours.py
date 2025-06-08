@@ -38,7 +38,7 @@ async def cmd_infotoures(message: Message):
         # Здесь написан id фото (Карта УЖД). Если нужно поменять картинку, то выше есть переменная photo, нужно использовать её вместо id
         sent_message = await message.answer_photo(
             # photo=photo,
-            photo="AgACAgIAAxkDAAIFAWhBqpokIa0kdyPeqq0wLMHv4nBmAAIo9TEbeeIQSiY78XIZlFBbAQADAgADdwADNgQ",
+            photo="AgACAgIAAxkDAAMSaEW8x47Etmn6nifuj5LI9jlP-RMAAr7yMRvrvDFKCBnJkFyJO1wBAAMCAAN3AAM2BA",
             caption="Выберите тур из списка ниже",
             reply_markup=await create_inline_keyboard_for_toures_with_button_go_back(
                 buttons, "back_help"

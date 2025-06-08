@@ -10,6 +10,8 @@ from states.toures import ToureStates
 from utils.tours import get_next_values, get_prev_data
 from utils.format_final_message import format_final_message
 import random
+from config import ADMINS
+from main import bot
 
 import asyncio
 
@@ -311,16 +313,20 @@ async def toure_end(message: Message, state: FSMContext):
     await asyncio.sleep(1)
 
     # Сообщение об успешной обработке
-    await message.answer(
+    await loading_message.edit_text(
         """
 🚂🎉 Ваша заявка сформирована! Постараемся ответить вам как можно быстрее🤝🏼
 
 Если необходима помощь - жмём /help — я тут! 😊
         """,
     )
+    msg = format_final_message(message, data)
     # финальное сообщение
-    await loading_message.edit_text(
-        format_final_message(message, data), parse_mode="HTML"
-    )
+    for admin_id in ADMINS:
+        await bot.send_message(
+            chat_id=admin_id,
+            text=msg,
+            parse_mode="HTML",
+        )
 
     await state.clear()

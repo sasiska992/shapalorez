@@ -30,3 +30,7 @@ async def cmd_help(message: Message):
 async def back_help(callback_query: CallbackQuery):
     await callback_query.answer("")
     await cmd_help(callback_query.message)
+
+# @router.message(Command("id"))
+# async def cmd_id(message: Message):
+#     await message.answer("Ваш id пользователя: `{}`".format(message.from_user.id), parse_mode="Markdown")

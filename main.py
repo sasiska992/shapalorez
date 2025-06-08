@@ -9,13 +9,6 @@ import logging
 
 from config import BOT_TOKEN
 
-from handlers import (
-    start_router,
-    help_router,
-    toure_router,
-    info_router,
-    contacts_router
-)
 
 logging.basicConfig(level=logging.INFO)
 
@@ -35,12 +28,22 @@ async def set_commands():
 
 
 async def main():
+
+    from handlers import (
+        start_router,
+        help_router,
+        toure_router,
+        info_router,
+        contacts_router,
+    )
+
     dp.include_router(start_router)
     dp.include_router(help_router)
     dp.include_router(toure_router)
     dp.include_router(info_router)
     dp.include_router(contacts_router)
     await bot.delete_webhook(drop_pending_updates=True)
+    await set_commands()
     await dp.start_polling(bot)
     await set_commands()
 

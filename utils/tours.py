@@ -90,7 +90,7 @@ def get_next_values(level: int, previous_values: list[str]) -> list[dict]:
         raise ValueError(f"Unsupported level: {level}")
 
 
-def get_labels_by_callback_path(callback_path: list[str]) -> list[str]:
+def get_labels_by_callback_path(callback_path: list[str]) -> list[str] | None:
     """
     Ищет путь по callback_data и возвращает соответствующие текстовые метки.
 
